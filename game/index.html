@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skyward Valkyrie: Archipelago</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="game-canvas" width="1280" height="720"></canvas>
+
+    <!-- Minimal top tactical bar; main avionics are crisp-rendered in the Canvas Glass HUD -->
+    <div id="hud-overlay" class="hidden">
+      <div id="top-bar">
+        <div class="brand-chip">
+          <span class="badge-dot"></span>
+          <span id="hud-mission-name">ARCHIPELAGO RING SLALOM</span>
+        </div>
+        <div class="toolbar-actions">
+          <button id="btn-camera" class="hud-btn" type="button" title="Toggle Chase / Cockpit View (C)">CAM: CHASE [C]</button>
+          <button id="btn-mouse" class="hud-btn" type="button" title="Toggle Mouse Flight Yoke (M)">MOUSE: OFF [M]</button>
+          <button id="btn-invert" class="hud-btn" type="button" title="Toggle Pitch Axis Inversion (I)">PITCH: STD [I]</button>
+          <button id="btn-audio" class="hud-btn" type="button" title="Toggle Audio (V)">AUDIO: ON [V]</button>
+          <button id="btn-menu" class="hud-btn accent" type="button" title="Pause / Mission Select (Esc)">MENU [ESC]</button>
+        </div>
+      </div>
+
+      <div id="event-banner" class="hidden"></div>
+
+      <div id="controls-hint">
+        <span><b>W/S</b> or <b>&uarr;/&darr;</b> Pitch</span>
+        <span><b>A/D</b> or <b>&larr;/&rarr;</b> Roll</span>
+        <span><b>Q/E</b> Yaw</span>
+        <span><b>Shift/Ctrl</b> Throttle</span>
+        <span><b>Space</b> Boost</span>
+        <span><b>G</b> Gear</span>
+        <span><b>F</b> Flaps</span>
+        <span><b>B</b> Brake</span>
+        <span><b>C</b> Camera</span>
+      </div>
+    </div>
+
+    <!-- Translucent Start / Mission Briefing Overlay (leaves central plane & vista clear!) -->
+    <div id="start-overlay">
+      <div id="start-header">
+        <div class="eyebrow">TACTICAL FLIGHT SIMULATOR &middot; ARCHIPELAGO SECTOR</div>
+        <h1>SKYWARD VALKYRIE</h1>
+        <p class="subtitle">Volcanic canyons, crosswind recon &amp; PAPI-guided coastal landings at 60 FPS.</p>
+      </div>
+
+      <div id="start-dock">
+        <div id="mission-cards">
+          <button class="mission-card selected" data-mission="slalom" type="button">
+            <div class="m-tag">SORTIE 01 &middot; 8 RINGS</div>
+            <div class="m-title">Archipelago Ring Slalom</div>
+            <div class="m-desc">Thread Twin Spire Canyon &amp; Caldera Ridge before fuel runs out.</div>
+          </button>
+          <button class="mission-card" data-mission="approach" type="button">
+            <div class="m-tag">SORTIE 02 &middot; ILS &amp; PAPI</div>
+            <div class="m-title">Coastal Touch-and-Go</div>
+            <div class="m-desc">Fly the 3.2&deg; glide slope, drop gear, flare &amp; kiss Runway 36.</div>
+          </button>
+          <button class="mission-card" data-mission="storm" type="button">
+            <div class="m-tag">SORTIE 03 &middot; WIND SHEAR</div>
+            <div class="m-title">Storm Recon Patrol</div>
+            <div class="m-desc">Hold low-altitude ridge gates through shifting volcanic squalls.</div>
+          </button>
+        </div>
+
+        <div id="launch-row">
+          <div class="quick-keys">
+            <span><b>W/S</b> Pitch</span>
+            <span><b>A/D</b> Roll</span>
+            <span><b>Q/E</b> Yaw</span>
+            <span><b>Shift/Ctrl</b> Throttle</span>
+            <span><b>Space</b> Afterburner</span>
+            <span><b>G/F/B</b> Gear / Flaps / Brake</span>
+          </div>
+          <button id="btn-launch" type="button">LAUNCH SORTIE</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pause Overlay -->
+    <div id="pause-overlay" class="hidden">
+      <div class="modal-card">
+        <div class="eyebrow">FLIGHT PAUSED</div>
+        <h2>AUTOPILOT HOLD</h2>
+        <p id="pause-mission-desc">Adjust flight controls or select a different sortie.</p>
+        <div class="modal-actions">
+          <button id="btn-resume" class="primary-btn" type="button">RESUME FLIGHT</button>
+          <button id="btn-restart" class="secondary-btn" type="button">RESTART SORTIE</button>
+          <button id="btn-menu-pause" class="secondary-btn" type="button">MISSION BRIEFING</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Debrief / End Overlay -->
+    <div id="end-overlay" class="hidden">
+      <div class="modal-card wide">
+        <div id="end-badge" class="eyebrow">SORTIE DEBRIEF</div>
+        <h2 id="end-title">MISSION COMPLETE</h2>
+        <p id="end-subtitle">Clean flight through the volcanic archipelago.</p>
+        <div id="end-stats"></div>
+        <div class="modal-actions">
+          <button id="btn-retry" class="primary-btn" type="button">FLY AGAIN</button>
+          <button id="btn-next-mission" class="secondary-btn" type="button">NEXT SORTIE</button>
+          <button id="btn-back-menu" class="secondary-btn" type="button">MISSION BRIEFING</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
